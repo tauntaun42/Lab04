@@ -1,8 +1,8 @@
 AutomatedMakefile = am
 CC = g++
 
-FILES = 
-EXECUTABLE = 
+FILES = CLGUI.o CLGUIDriver.o
+EXECUTABLE = Lab04.exe
 
 PROJECT_PATH = $(PROJECT_DIR)
 GTK_PATH = /$(DRIVE_LETTER)/MinGW/GTK
@@ -18,5 +18,11 @@ LINK = $(CC) $(LIB_DIRS) -o
 all: Project
 
 Project: 		$(FILES)
-			$(LINK) $(EXECUTABLE) $(FILES) $(LIBS)
+				$(LINK) $(EXECUTABLE) $(FILES) $(LIBS)
+				
+CLGUI.o:		CLGUI.h CLGUI.cpp
+				$(COMPILE) CLGUI.cpp
+
+CLGUIDriver.o:	CLGUI.h CLGUI.cpp CLGUIDriver.cpp
+				$(COMPILE) CLGUIDriver.cpp
 
