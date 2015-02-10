@@ -63,13 +63,13 @@ DoubleNode<T>* CircularList<T>::find(int index)
  
    if (index >= loc_pos)
    {
-                                    //distance without the bridge (next refs, positive)
+                                   //distance without the bridge (next refs, positive)
                                     //distance using the bridge (prev refs, negative)
    }
    else
    {
-                                    //distance without the bridge (prev refs, negative)
-                                    //distance using the bridge (next refs, positive)
+         int pos = sz-loc_pos+index;                           //distance without the bridge (prev refs, negative)
+         int neg = -(loc_pos-index);                           //distance using the bridge (next refs, positive)
    }
 
    //DO THIS which distance is smaller?
