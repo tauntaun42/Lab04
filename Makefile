@@ -2,9 +2,10 @@ AutomatedMakefile = am
 CC = g++
 
 FILES = CLGUI.o CLGUIDriver.o
-EXECUTABLE = Lab04.exe
+EXECUTABLE = CircleLinkedList.exe
 
 PROJECT_PATH = $(PROJECT_DIR)
+
 GTK_PATH = /$(DRIVE_LETTER)/MinGW/GTK
 GTKMM3_PATH = /$(DRIVE_LETTER)/MinGW/gtkmm3
 
@@ -18,11 +19,12 @@ LINK = $(CC) $(LIB_DIRS) -o
 all: Project
 
 Project: 		$(FILES)
-				$(LINK) $(EXECUTABLE) $(FILES) $(LIBS)
-				
-CLGUI.o:		CLGUI.h CLGUI.cpp
-				$(COMPILE) CLGUI.cpp
+			$(LINK) $(EXECUTABLE) $(FILES) $(LIBS)
+			
 
-CLGUIDriver.o:	CLGUI.h CLGUI.cpp CLGUIDriver.cpp
-				$(COMPILE) CLGUIDriver.cpp
+CLGUI.o:			CLGUI.h		CLGUI.cpp
+					$(COMPILE)	CLGUI.cpp
+
+CLGUIDriver.o:		CLGUIDriver.cpp
+					$(COMPILE)	CLGUIDriver.cpp
 

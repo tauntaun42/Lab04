@@ -60,16 +60,18 @@ DoubleNode<T>* CircularList<T>::find(int index)
    //complete the distance calculations below
    //loc_pos is the index that loc currently points to
    //index is the requested index
+   
+   int neg,pos;
  
    if (index >= loc_pos)
    {
-         int pos = sz-index+loc_pos;                          //distance without the bridge (next refs, positive)
-         int neg = -(index-loc_pos);                          //distance using the bridge (prev refs, negative)
+         pos = sze-index+loc_pos;                          //distance without the bridge (next refs, positive)
+         neg = -(index-loc_pos);                          //distance using the bridge (prev refs, negative)
    }
    else
    {
-         int pos = sz-loc_pos+index;                           //distance without the bridge (prev refs, negative)
-         int neg = -(loc_pos-index);                           //distance using the bridge (next refs, positive)
+         pos = sze-loc_pos+index;                           //distance without the bridge (prev refs, negative)
+         neg = -(loc_pos-index);                           //distance using the bridge (next refs, positive)
    }
 
    //DO THIS which distance is smaller?
@@ -161,13 +163,17 @@ void CircularList<T>::remove(int index)
 		 
 			//store temp value of index
 			
-			loc = find(int index)
-			loc_pos = find(int index)
+			loc = find(index);
+			loc_pos = /*find(index)*/index;
 			
 			DoubleNode<T>* temp_loc = loc;
+			DoubleNode<T>* prev;
+
+         
+            prev = find(index - 1);
 			
-			loc->prev->setNext(temp_loc->getNext());
-			loc->next->setPrev(temp_loc->getPrev());
+			loc->getPrev()->setNext(temp_loc->getNext());
+			loc->getNext()->setPrev(temp_loc->getPrev());
 			
 			delete temp_loc;
 
