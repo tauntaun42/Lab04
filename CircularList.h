@@ -62,18 +62,28 @@ DoubleNode<T>* CircularList<T>::find(int index)
    //index is the requested index
  
    if (index >= loc_pos)
-   {  
-	   dist_next = (sz - loc_pos) + index; //distance without the bridge (next refs, positive)
-	   dist_prev = -(loc_pos - index); //distance using the bridge (prev refs, negative)
+   {
+         int pos = sz-index+loc_pos;                          //distance without the bridge (next refs, positive)
+         int neg = -(index-loc_pos);                          //distance using the bridge (prev refs, negative)
    }
    else
    {
-	   dist_next = (sz - index) + loc_pos; //distance without the bridge (prev refs, negative)
-       dist_prev = -(loc_pos - index);   //distance using the bridge (next refs, positive)
+         int pos = sz-loc_pos+index;                           //distance without the bridge (prev refs, negative)
+         int neg = -(loc_pos-index);                           //distance using the bridge (next refs, positive)
    }
 
-   //set smallest path to index
-   min_dist = abs (dist_next) < abs (dist_prev) ? dist_next : dist_prev;
+   //DO THIS which distance is smaller?
+   //find the minimum distance using absolute value
+   //set min_dist to the smaller value, keeping the sign
+
+int neg_compare = neg + (neg*2); // Absolute value of neg used for comparison to pos
+
+if(pos>neg_compare)
+	min_dist=neg;
+else
+	min_dist=pos;
+
+
 
 
    if (min_dist < 0)  //negative distance means use prev links, counterclockwise
@@ -129,29 +139,45 @@ void CircularList<T>::animateMovement(bool clockwise, DoubleNode<T>* where)
 template < class T >
 void CircularList<T>::remove(int index) 
 {
-	//DO THIS
-	//remember to move loc and loc_pos to the location of the removal
-	//remember to delete the node after it has been removed from the list
-	if (index >= 1 && index <= sze) 
-	{
+   //DO THIS
+   //remember to move loc and loc_pos to the location of the removal
+   //remember to delete the node after it has been removed from the list
+   if (index >= 1 && index <= sze) 
+   {
 
-		if (sze == 1) //special case
-		{
-			removeAll();
-		}
-		else
-		{
-			//use local variables
+      if (sze == 1) //special case
+      {
+
+		removeAll();
+		sze=1;
+
+
+
+
+      }
+      else
+      {
+         //use local variables
+		 
 			//store temp value of index
+			
+			loc = find(int index)
+			loc_pos = find(int index)
+			
 			DoubleNode<T>* temp_loc = loc;
-			loc->prev->setNext() = temp_loc->getNext();
-			loc->next->setPrev() = temp_loc->getPrev();
+			
+			loc->prev->setNext(temp_loc->getNext());
+			loc->next->setPrev(temp_loc->getPrev());
+			
+			delete temp_loc;
 
-			delete *temp_loc;
 
-			sze--;
-		}
-	} 
+
+
+
+      }
+      sze--;
+   } 
 }
 
 template < class T >
