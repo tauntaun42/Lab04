@@ -1,3 +1,5 @@
+//https://github.com/tauntaun42/Lab04.git
+
 #if !defined CIRCULARLIST_H
 #define CIRCULARLIST_H
 
@@ -8,6 +10,7 @@
 #include "Circle.h"
 #include "Update.h"
 #include "Text.h"
+#include "Math.h"
 using CSC2110::String;
 
 template < class T >
@@ -60,34 +63,32 @@ DoubleNode<T>* CircularList<T>::find(int index)
    //complete the distance calculations below
    //loc_pos is the index that loc currently points to
    //index is the requested index
-   
-   int neg,pos;
+
  
    if (index >= loc_pos)
    {
-         pos = sze-index+loc_pos;                          //distance without the bridge (next refs, positive)
-         neg = -(index-loc_pos);                          //distance using the bridge (prev refs, negative)
+         dist_next = index-loc_pos; //distance without the bridge (next refs, positive)
+         dist_prev = index-(loc_pos+sze); //distance using the bridge (prev refs, negative)
    }
    else
    {
-         pos = sze-loc_pos+index;                           //distance without the bridge (prev refs, negative)
-         neg = -(loc_pos-index);                           //distance using the bridge (next refs, positive)
+		dist_next = (sze+index)-loc_pos; //distance without the bridge (prev refs, negative)
+        dist_prev = index-loc_pos;  //distance using the bridge (next refs, positive)
    }
 
    //DO THIS which distance is smaller?
    //find the minimum distance using absolute value
    //set min_dist to the smaller value, keeping the sign
 
-int neg_compare = neg + (neg*2); // Absolute value of neg used for comparison to pos
+	//int neg_compare = neg + (neg*2); // Dearest Partner: WTF dude, no
 
-if(pos>neg_compare)
-	min_dist=neg;
-else
-	min_dist=pos;
+	//compare next to prev to find min dist
+	if(abs(dist_next) > abs(dist_prev))
+		min_dist=dist_prev;
+	else
+		min_dist=dist_next;
 
-
-
-
+	
    if (min_dist < 0)  //negative distance means use prev links, counterclockwise
    {
       for (int i = 1; i <= -1*min_dist; i++)
@@ -149,38 +150,29 @@ void CircularList<T>::remove(int index)
 
       if (sze == 1) //special case
       {
-
-		removeAll();
-		sze=1;
-
-
-
-
+		delete loc;
+		loc_pos = 0;
       }
       else
       {
-         //use local variables
+        //use local variables
 		 
-			//store temp value of index
-			
-			loc = find(index);
-			loc_pos = /*find(index)*/index;
-			
-			DoubleNode<T>* temp_loc = loc;
-			DoubleNode<T>* prev;
-
-         
-            prev = find(index - 1);
-			
-			loc->getPrev()->setNext(temp_loc->getNext());
-			loc->getNext()->setPrev(temp_loc->getPrev());
-			
-			delete temp_loc;
-
-
-
-
-
+		//store temp value of index
+		
+		loc = find(index);
+		loc_pos = /*find(index)*/index;
+		
+		DoubleNode<T>* prev = loc->getPrev();
+		DoubleNode<T>* next = loc->getNext();
+		
+		prev->setNext(next);
+		next->setPrev(prev);
+		
+		delete loc;
+		
+		loc = next; //set loc back into the circle list at correct index
+		if (index==sze)
+			loc_pos = 1;
       }
       sze--;
    } 
