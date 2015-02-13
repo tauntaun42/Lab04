@@ -1,4 +1,4 @@
-//https://github.com/tauntaun42/Lab04.git
+//https://github.com/tauntaun42/Lab04
 
 #include <gtkmm/main.h>
 #include <gtkmm/window.h>

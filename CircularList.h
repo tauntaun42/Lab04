@@ -1,4 +1,4 @@
-//https://github.com/tauntaun42/Lab04.git
+//https://github.com/tauntaun42/Lab04
 
 #if !defined CIRCULARLIST_H
 #define CIRCULARLIST_H
@@ -59,8 +59,6 @@ DoubleNode<T>* CircularList<T>::find(int index)
       return NULL;
    }
 
-
- 
    if (index >= loc_pos)
    {
          dist_next = index-loc_pos; //distance without the bridge (next refs, positive)
@@ -71,8 +69,6 @@ DoubleNode<T>* CircularList<T>::find(int index)
 		dist_next = (sze+index)-loc_pos; //distance without the bridge (prev refs, negative)
         dist_prev = index-loc_pos;  //distance using the bridge (next refs, positive)
    }
-
-
 
 	//compare next to prev to find min dist
 	if(abs(dist_next) > abs(dist_prev))
@@ -145,7 +141,6 @@ void CircularList<T>::remove(int index)
       else
       {
         //use local variables
-		 
 		//store temp value of index
 		
 		loc = find(index);
@@ -160,7 +155,7 @@ void CircularList<T>::remove(int index)
 		delete loc;
 		
 		loc = next; //set loc back into the circle list at correct index
-		if (index==sze)
+		if (index==sze) //if last element, loc becomes 1st node
 			loc_pos = 1;
       }
       sze--;
