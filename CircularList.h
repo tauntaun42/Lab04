@@ -59,10 +59,6 @@ DoubleNode<T>* CircularList<T>::find(int index)
       return NULL;
    }
 
-   //DO THIS
-   //complete the distance calculations below
-   //loc_pos is the index that loc currently points to
-   //index is the requested index
 
  
    if (index >= loc_pos)
@@ -76,11 +72,7 @@ DoubleNode<T>* CircularList<T>::find(int index)
         dist_prev = index-loc_pos;  //distance using the bridge (next refs, positive)
    }
 
-   //DO THIS which distance is smaller?
-   //find the minimum distance using absolute value
-   //set min_dist to the smaller value, keeping the sign
 
-	//int neg_compare = neg + (neg*2); // Dearest Partner: WTF dude, no
 
 	//compare next to prev to find min dist
 	if(abs(dist_next) > abs(dist_prev))
@@ -142,9 +134,6 @@ void CircularList<T>::animateMovement(bool clockwise, DoubleNode<T>* where)
 template < class T >
 void CircularList<T>::remove(int index) 
 {
-   //DO THIS
-   //remember to move loc and loc_pos to the location of the removal
-   //remember to delete the node after it has been removed from the list
    if (index >= 1 && index <= sze) 
    {
 
@@ -160,7 +149,7 @@ void CircularList<T>::remove(int index)
 		//store temp value of index
 		
 		loc = find(index);
-		loc_pos = /*find(index)*/index;
+		loc_pos = index;
 		
 		DoubleNode<T>* prev = loc->getPrev();
 		DoubleNode<T>* next = loc->getNext();
